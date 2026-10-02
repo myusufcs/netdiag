@@ -5,7 +5,7 @@ TLS, timing HTTP berlapis, dan cek port. Satu perintah, satu laporan.
 
 Dipakai saat pertanyaan harganya: *"kenapa lambat?"*, *"kenapa putus?"*, *"di mana masalahnya?"*
 
-[![CI](https://github.com/nullbyte12007/netdiag/actions/workflows/ci.yml/badge.svg)](https://github.com/nullbyte12007/netdiag/actions/workflows/ci.yml)
+[![CI](https://github.com/myusufcs/netdiag/actions/workflows/ci.yml/badge.svg)](https://github.com/myusufcs/netdiag/actions/workflows/ci.yml)
 ![Python](https://img.shields.io/badge/python-3.10%2B-blue)
 ![Zero deps](https://img.shields.io/badge/dependencies-none-success)
 ![License](https://img.shields.io/badge/license-MIT-green)
@@ -75,7 +75,7 @@ Zero dependency. Memakai tool sistem bila tersedia (`ping`, `dig`, `mtr`) — ya
 otomatis berstatus `SKIP`, bukan error.
 
 ```bash
-git clone https://github.com/nullbyte12007/netdiag
+git clone https://github.com/myusufcs/netdiag
 cd netdiag
 
 python3 -m netdiag example.com                     # semua probe default
