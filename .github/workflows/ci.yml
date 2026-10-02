@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [ "3.10", "3.11", "3.12", "3.13" ]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Compile check
+        run: python3 -m compileall -q netdiag
+
+      - name: Jalankan test (tanpa jaringan)
+        run: python3 -m unittest discover -s tests -v
+
+      - name: Daftar probe
+        run: python3 -m netdiag --list
+
+      - name: Smoke test — host tidak valid harus lapor rapi, bukan crash
+        run: |
+          set -e
+          python3 -m netdiag tidak-ada.invalid --only dns --out reports --format json || true
+          python3 - <<'PY'
+          import json, glob
+          data = json.load(open(glob.glob('reports/netdiag-*.json')[0]))
+          assert data['errors'] == [], data['errors']
+          assert data['results'], 'tidak ada hasil'
+          print('smoke OK:', data['verdict'], data['summary'])
+          PY
+
+      - name: Smoke test jaringan nyata (best effort, tidak menggagalkan CI)
+        continue-on-error: true
+        run: |
+          python3 -m netdiag 1.1.1.1 --only reach --count 2

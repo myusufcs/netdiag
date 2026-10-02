@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Laporan diagnosa memuat detail topologi/jaringan — jangan di-commit
+reports/
+netdiag-*.txt
+netdiag-*.md
+netdiag-*.json
+
+*.log
+.DS_Store
+.idea/
+.vscode/
